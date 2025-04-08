@@ -1,0 +1,786 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - PTK Exim</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --accent-color: #e74c3c;
+            --success-color: #2ecc71;
+            --warning-color: #f1c40f;
+            --light-color: #f8f9fa;
+            --dark-color: #2c3e50;
+            --gray: #95a5a6;
+            --border-radius: 8px;
+            --box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: #f4f6f9;
+            color: var(--dark-color);
+            line-height: 1.6;
+        }
+
+        .admin-container {
+            display: grid;
+            grid-template-columns: 250px 1fr;
+            min-height: 100vh;
+        }
+
+        /* Sidebar Styles */
+        .sidebar {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 1.5rem;
+            position: fixed;
+            height: 100vh;
+            width: 250px;
+        }
+
+        .sidebar-header {
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            margin-bottom: 1.5rem;
+        }
+
+        .sidebar-header h1 {
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+
+        .nav-menu {
+            list-style: none;
+        }
+
+        .nav-item {
+            margin-bottom: 0.5rem;
+        }
+
+        .nav-link {
+            display: flex;
+            align-items: center;
+            padding: 0.8rem 1rem;
+            color: white;
+            text-decoration: none;
+            border-radius: var(--border-radius);
+            transition: var(--transition);
+        }
+
+        .nav-link:hover, .nav-link.active {
+            background-color: rgba(255,255,255,0.1);
+        }
+
+        .nav-link i {
+            margin-right: 0.8rem;
+            width: 20px;
+            text-align: center;
+        }
+
+        /* Main Content Styles */
+        .main-content {
+            margin-left: 250px;
+            padding: 2rem;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid #eee;
+        }
+
+        .header h2 {
+            font-size: 1.8rem;
+            color: var(--dark-color);
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .user-info img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        /* Dashboard Cards */
+        .dashboard-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            transition: var(--transition);
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .card-title {
+            font-size: 1.1rem;
+            color: var(--dark-color);
+        }
+
+        .card-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+        }
+
+        .card-icon.products { background-color: #e3f2fd; color: #1976d2; }
+        .card-icon.comments { background-color: #f3e5f5; color: #7b1fa2; }
+        .card-icon.messages { background-color: #e8f5e9; color: #388e3c; }
+        .card-icon.visitors { background-color: #fff3e0; color: #f57c00; }
+
+        .card-value {
+            font-size: 2rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .card-change {
+            font-size: 0.9rem;
+            color: var(--success-color);
+        }
+
+        /* Content Sections */
+        .content-section {
+            background: white;
+            padding: 1.5rem;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            margin-bottom: 2rem;
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .section-title {
+            font-size: 1.3rem;
+            color: var(--dark-color);
+        }
+
+        .btn {
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: var(--transition);
+        }
+
+        .btn-primary {
+            background-color: var(--secondary-color);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: #2980b9;
+        }
+
+        /* Table Styles */
+        .table-container {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid #eee;
+        }
+
+        th {
+            background-color: #f8f9fa;
+            font-weight: 600;
+        }
+
+        tr:hover {
+            background-color: #f8f9fa;
+        }
+
+        .status {
+            padding: 0.25rem 0.5rem;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        .status.published { background-color: #e8f5e9; color: #388e3c; }
+        .status.pending { background-color: #fff3e0; color: #f57c00; }
+        .status.draft { background-color: #eceff1; color: #546e7a; }
+
+        .action-buttons {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .btn-icon {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: none;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .btn-edit {
+            background-color: #e3f2fd;
+            color: #1976d2;
+        }
+
+        .btn-delete {
+            background-color: #ffebee;
+            color: #d32f2f;
+        }
+
+        .btn-icon:hover {
+            transform: translateY(-2px);
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+            z-index: 1000;
+        }
+
+        .modal-content {
+            position: relative;
+            background-color: white;
+            margin: 5% auto;
+            padding: 2rem;
+            width: 90%;
+            max-width: 600px;
+            border-radius: var(--border-radius);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .modal-title {
+            font-size: 1.5rem;
+            color: var(--dark-color);
+        }
+
+        .close-modal {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--gray);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid #ddd;
+            border-radius: var(--border-radius);
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--secondary-color);
+            box-shadow: 0 0 0 2px rgba(52,152,219,0.2);
+        }
+
+        textarea.form-control {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .admin-container {
+                grid-template-columns: 1fr;
+            }
+
+            .sidebar {
+                display: none;
+            }
+
+            .main-content {
+                margin-left: 0;
+            }
+
+            .dashboard-cards {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="admin-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h1>PTK Exim Admin</h1>
+            </div>
+            <ul class="nav-menu">
+                <li class="nav-item">
+                    <a href="#" class="nav-link active">
+                        <i class="fas fa-home"></i>
+                        Dashboard
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link">
+                        <i class="fas fa-box"></i>
+                        Produk
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link">
+                        <i class="fas fa-comments"></i>
+                        Komentar
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link">
+                        <i class="fas fa-envelope"></i>
+                        Pesan
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link">
+                        <i class="fas fa-cog"></i>
+                        Pengaturan
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="login.html" class="nav-link">
+                        <i class="fas fa-sign-out-alt"></i>
+                        Keluar
+                    </a>
+                </li>
+            </ul>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <div class="header">
+                <h2>Dashboard</h2>
+                <div class="user-info">
+                    <span>Admin</span>
+                    <img src="https://via.placeholder.com/40" alt="Admin">
+                </div>
+            </div>
+
+            <!-- Dashboard Cards -->
+            <div class="dashboard-cards">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Total Produk</h3>
+                        <div class="card-icon products">
+                            <i class="fas fa-box"></i>
+                        </div>
+                    </div>
+                    <div class="card-value">12</div>
+                    <div class="card-change">
+                        <i class="fas fa-arrow-up"></i>
+                        2 produk baru
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Komentar</h3>
+                        <div class="card-icon comments">
+                            <i class="fas fa-comments"></i>
+                        </div>
+                    </div>
+                    <div class="card-value">48</div>
+                    <div class="card-change">
+                        <i class="fas fa-arrow-up"></i>
+                        5 komentar baru
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Pesan Masuk</h3>
+                        <div class="card-icon messages">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                    </div>
+                    <div class="card-value">15</div>
+                    <div class="card-change">
+                        <i class="fas fa-arrow-up"></i>
+                        3 pesan baru
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Pengunjung</h3>
+                        <div class="card-icon visitors">
+                            <i class="fas fa-users"></i>
+                        </div>
+                    </div>
+                    <div class="card-value">1,234</div>
+                    <div class="card-change">
+                        <i class="fas fa-arrow-up"></i>
+                        12% dari minggu lalu
+                    </div>
+                </div>
+            </div>
+
+            <!-- Products Section -->
+            <div class="content-section">
+                <div class="section-header">
+                    <h3 class="section-title">Produk Terbaru</h3>
+                    <button class="btn btn-primary" onclick="openModal('addProduct')">
+                        <i class="fas fa-plus"></i> Tambah Produk
+                    </button>
+                </div>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Nama Produk</th>
+                                <th>Kategori</th>
+                                <th>Harga</th>
+                                <th>Status</th>
+                                <th>Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Sekam Bakar</td>
+                                <td>Pertanian</td>
+                                <td>Rp 25.000/kg</td>
+                                <td><span class="status published">Dipublikasi</span></td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <button class="btn-icon btn-edit" onclick="openModal('editProduct')">
+                                            <i class="fas fa-edit"></i>
+                                        </button>
+                                        <button class="btn-icon btn-delete" onclick="deleteProduct()">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Briket Arang</td>
+                                <td>Industri</td>
+                                <td>Rp 15.000/kg</td>
+                                <td><span class="status pending">Menunggu</span></td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <button class="btn-icon btn-edit" onclick="openModal('editProduct')">
+                                            <i class="fas fa-edit"></i>
+                                        </button>
+                                        <button class="btn-icon btn-delete" onclick="deleteProduct()">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Comments Section -->
+            <div class="content-section">
+                <div class="section-header">
+                    <h3 class="section-title">Komentar Terbaru</h3>
+                </div>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Pengguna</th>
+                                <th>Komentar</th>
+                                <th>Produk</th>
+                                <th>Tanggal</th>
+                                <th>Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Budi T.</td>
+                                <td>Sekam bakar ini sangat bagus untuk media tanam sayuran saya...</td>
+                                <td>Sekam Bakar</td>
+                                <td>12 Maret 2024</td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <button class="btn-icon btn-edit" onclick="openModal('editComment')">
+                                            <i class="fas fa-edit"></i>
+                                        </button>
+                                        <button class="btn-icon btn-delete" onclick="deleteComment()">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Messages Section -->
+            <div class="content-section">
+                <div class="section-header">
+                    <h3 class="section-title">Pesan Masuk</h3>
+                </div>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Pengirim</th>
+                                <th>Subjek</th>
+                                <th>Tanggal</th>
+                                <th>Status</th>
+                                <th>Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>PT. Tani Makmur</td>
+                                <td>Pertanyaan tentang Sekam Bakar</td>
+                                <td>12 Maret 2024</td>
+                                <td><span class="status pending">Belum Dibaca</span></td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <button class="btn-icon btn-edit" onclick="openModal('viewMessage')">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                        <button class="btn-icon btn-delete" onclick="deleteMessage()">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Add/Edit Product Modal -->
+    <div id="productModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Tambah Produk Baru</h3>
+                <button class="close-modal" onclick="closeModal('productModal')">&times;</button>
+            </div>
+            <form id="productForm">
+                <div class="form-group">
+                    <label for="productName">Nama Produk</label>
+                    <input type="text" id="productName" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="productCategory">Kategori</label>
+                    <select id="productCategory" class="form-control" required>
+                        <option value="">Pilih Kategori</option>
+                        <option value="agriculture">Pertanian</option>
+                        <option value="industry">Industri</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="productPrice">Harga</label>
+                    <input type="text" id="productPrice" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="productDescription">Deskripsi</label>
+                    <textarea id="productDescription" class="form-control" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="productImages">Gambar Produk</label>
+                    <input type="file" id="productImages" class="form-control" multiple accept="image/*">
+                </div>
+                <button type="submit" class="btn btn-primary">Simpan Produk</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Edit Comment Modal -->
+    <div id="commentModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Edit Komentar</h3>
+                <button class="close-modal" onclick="closeModal('commentModal')">&times;</button>
+            </div>
+            <form id="commentForm">
+                <div class="form-group">
+                    <label for="commentText">Komentar</label>
+                    <textarea id="commentText" class="form-control" required></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- View Message Modal -->
+    <div id="messageModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Detail Pesan</h3>
+                <button class="close-modal" onclick="closeModal('messageModal')">&times;</button>
+            </div>
+            <div class="message-details">
+                <div class="form-group">
+                    <label>Pengirim</label>
+                    <p id="messageSender">PT. Tani Makmur</p>
+                </div>
+                <div class="form-group">
+                    <label>Tanggal</label>
+                    <p id="messageDate">12 Maret 2024</p>
+                </div>
+                <div class="form-group">
+                    <label>Subjek</label>
+                    <p id="messageSubject">Pertanyaan tentang Sekam Bakar</p>
+                </div>
+                <div class="form-group">
+                    <label>Pesan</label>
+                    <p id="messageContent">Lorem ipsum dolor sit amet, consectetur adipiscing elit...</p>
+                </div>
+                <div class="form-group">
+                    <label for="messageReply">Balas Pesan</label>
+                    <textarea id="messageReply" class="form-control" rows="4"></textarea>
+                </div>
+                <button class="btn btn-primary">Kirim Balasan</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Modal Functions
+        function openModal(modalType) {
+            const modal = document.getElementById(modalType + 'Modal');
+            modal.style.display = 'block';
+        }
+
+        function closeModal(modalId) {
+            const modal = document.getElementById(modalId);
+            modal.style.display = 'none';
+        }
+
+        // Close modal when clicking outside
+        window.onclick = function(event) {
+            if (event.target.classList.contains('modal')) {
+                event.target.style.display = 'none';
+            }
+        }
+
+        // Form Submissions
+        document.getElementById('productForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            // Add your product submission logic here
+            alert('Produk berhasil disimpan!');
+            closeModal('productModal');
+        });
+
+        document.getElementById('commentForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            // Add your comment update logic here
+            alert('Komentar berhasil diperbarui!');
+            closeModal('commentModal');
+        });
+
+        // Delete Functions
+        function deleteProduct() {
+            if(confirm('Apakah Anda yakin ingin menghapus produk ini?')) {
+                // Add your delete logic here
+                alert('Produk berhasil dihapus!');
+            }
+        }
+
+        function deleteComment() {
+            if(confirm('Apakah Anda yakin ingin menghapus komentar ini?')) {
+                // Add your delete logic here
+                alert('Komentar berhasil dihapus!');
+            }
+        }
+
+        function deleteMessage() {
+            if(confirm('Apakah Anda yakin ingin menghapus pesan ini?')) {
+                // Add your delete logic here
+                alert('Pesan berhasil dihapus!');
+            }
+        }
+
+        // Navigation
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', function(e) {
+                document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+                this.classList.add('active');
+            });
+        });
+    </script>
+</body>
+</html> 

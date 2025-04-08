@@ -1,0 +1,959 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pesan Masuk - PTK Exim Admin</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --accent-color: #e74c3c;
+            --success-color: #2ecc71;
+            --warning-color: #f1c40f;
+            --light-color: #f8f9fa;
+            --dark-color: #2c3e50;
+            --gray: #95a5a6;
+            --border-radius: 8px;
+            --box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: #f4f6f9;
+            color: var(--dark-color);
+            line-height: 1.6;
+        }
+
+        .admin-container {
+            display: grid;
+            grid-template-columns: 250px 1fr;
+            min-height: 100vh;
+        }
+
+        /* Sidebar Styles */
+        .sidebar {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 1.5rem;
+            position: fixed;
+            height: 100vh;
+            width: 250px;
+        }
+
+        .sidebar-header {
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            margin-bottom: 1.5rem;
+        }
+
+        .sidebar-header h1 {
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+
+        .nav-menu {
+            list-style: none;
+        }
+
+        .nav-item {
+            margin-bottom: 0.5rem;
+        }
+
+        .nav-link {
+            display: flex;
+            align-items: center;
+            padding: 0.8rem 1rem;
+            color: white;
+            text-decoration: none;
+            border-radius: var(--border-radius);
+            transition: var(--transition);
+        }
+
+        .nav-link:hover, .nav-link.active {
+            background-color: rgba(255,255,255,0.1);
+        }
+
+        .nav-link i {
+            margin-right: 0.8rem;
+            width: 20px;
+            text-align: center;
+        }
+
+        /* Main Content Styles */
+        .main-content {
+            margin-left: 250px;
+            padding: 2rem;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid #eee;
+        }
+
+        .header h2 {
+            font-size: 1.8rem;
+            color: var(--dark-color);
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .user-info img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        /* Page Header */
+        .page-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+
+        .page-title {
+            font-size: 1.8rem;
+            color: var(--dark-color);
+        }
+
+        .page-actions {
+            display: flex;
+            gap: 1rem;
+        }
+
+        /* Filter Section */
+        .filter-section {
+            background: white;
+            padding: 1.5rem;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            margin-bottom: 2rem;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .filter-group {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .filter-label {
+            font-weight: 500;
+            color: var(--dark-color);
+        }
+
+        .filter-input {
+            padding: 0.5rem;
+            border: 1px solid #ddd;
+            border-radius: var(--border-radius);
+            font-size: 0.9rem;
+        }
+
+        .filter-select {
+            padding: 0.5rem;
+            border: 1px solid #ddd;
+            border-radius: var(--border-radius);
+            font-size: 0.9rem;
+            background-color: white;
+        }
+
+        /* Messages Table */
+        .messages-table {
+            background: white;
+            padding: 1.5rem;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            margin-bottom: 2rem;
+        }
+
+        .table-container {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid #eee;
+        }
+
+        th {
+            background-color: #f8f9fa;
+            font-weight: 600;
+        }
+
+        tr:hover {
+            background-color: #f8f9fa;
+        }
+
+        .message-text {
+            max-width: 300px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .status {
+            padding: 0.25rem 0.5rem;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        .status.read { background-color: #e8f5e9; color: #388e3c; }
+        .status.unread { background-color: #e3f2fd; color: #1976d2; }
+
+        .action-buttons {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .btn {
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn-primary {
+            background-color: var(--secondary-color);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: #2980b9;
+        }
+
+        .btn-success {
+            background-color: var(--success-color);
+            color: white;
+        }
+
+        .btn-success:hover {
+            background-color: #27ae60;
+        }
+
+        .btn-warning {
+            background-color: var(--warning-color);
+            color: white;
+        }
+
+        .btn-warning:hover {
+            background-color: #f39c12;
+        }
+
+        .btn-danger {
+            background-color: var(--accent-color);
+            color: white;
+        }
+
+        .btn-danger:hover {
+            background-color: #c0392b;
+        }
+
+        .btn-icon {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: none;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .btn-view {
+            background-color: #e3f2fd;
+            color: #1976d2;
+        }
+
+        .btn-reply {
+            background-color: #e8f5e9;
+            color: #388e3c;
+        }
+
+        .btn-delete {
+            background-color: #ffebee;
+            color: #d32f2f;
+        }
+
+        .btn-icon:hover {
+            transform: translateY(-2px);
+        }
+
+        /* Pagination */
+        .pagination {
+            display: flex;
+            justify-content: center;
+            margin-top: 2rem;
+            gap: 0.5rem;
+        }
+
+        .pagination-item {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background-color: white;
+            color: var(--dark-color);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .pagination-item:hover, .pagination-item.active {
+            background-color: var(--secondary-color);
+            color: white;
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+            z-index: 1000;
+        }
+
+        .modal-content {
+            position: relative;
+            background-color: white;
+            margin: 5% auto;
+            padding: 2rem;
+            width: 90%;
+            max-width: 800px;
+            border-radius: var(--border-radius);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .modal-title {
+            font-size: 1.5rem;
+            color: var(--dark-color);
+        }
+
+        .close-modal {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--gray);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid #ddd;
+            border-radius: var(--border-radius);
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--secondary-color);
+            box-shadow: 0 0 0 2px rgba(52,152,219,0.2);
+        }
+
+        textarea.form-control {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        .form-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .btn-secondary {
+            background-color: var(--gray);
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background-color: #7f8c8d;
+        }
+
+        /* Message Preview */
+        .message-preview {
+            background-color: #f8f9fa;
+            padding: 1.5rem;
+            border-radius: var(--border-radius);
+            margin-bottom: 1.5rem;
+        }
+
+        .message-meta {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+            color: var(--gray);
+        }
+
+        .message-sender {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .message-sender i {
+            color: var(--secondary-color);
+        }
+
+        .message-date {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .message-date i {
+            color: var(--gray);
+        }
+
+        .message-subject {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--dark-color);
+        }
+
+        .message-content {
+            font-size: 1rem;
+            line-height: 1.6;
+            white-space: pre-line;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .admin-container {
+                grid-template-columns: 1fr;
+            }
+
+            .sidebar {
+                display: none;
+            }
+
+            .main-content {
+                margin-left: 0;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="admin-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h1>PTK Exim Admin</h1>
+            </div>
+            <ul class="nav-menu">
+                <li class="nav-item">
+                    <a href="dashboard.html" class="nav-link">
+                        <i class="fas fa-home"></i>
+                        Dashboard
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="products.html" class="nav-link">
+                        <i class="fas fa-box"></i>
+                        Produk
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="comments.html" class="nav-link">
+                        <i class="fas fa-comments"></i>
+                        Komentar
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="messages.html" class="nav-link active">
+                        <i class="fas fa-envelope"></i>
+                        Pesan
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="settings.html" class="nav-link">
+                        <i class="fas fa-cog"></i>
+                        Pengaturan
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="login.html" class="nav-link">
+                        <i class="fas fa-sign-out-alt"></i>
+                        Keluar
+                    </a>
+                </li>
+            </ul>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <div class="header">
+                <h2>Pesan Masuk</h2>
+                <div class="user-info">
+                    <span>Admin</span>
+                    <img src="https://via.placeholder.com/40" alt="Admin">
+                </div>
+            </div>
+
+            <!-- Page Header -->
+            <div class="page-header">
+                <h1 class="page-title">Daftar Pesan</h1>
+                <div class="page-actions">
+                    <button class="btn btn-primary" onclick="applyFilter()">
+                        <i class="fas fa-filter"></i> Terapkan Filter
+                    </button>
+                    <button class="btn btn-success" onclick="exportMessages()">
+                        <i class="fas fa-file-export"></i> Export
+                    </button>
+                </div>
+            </div>
+
+            <!-- Filter Section -->
+            <div class="filter-section">
+                <div class="filter-group">
+                    <label class="filter-label">Cari:</label>
+                    <input type="text" class="filter-input" placeholder="Nama atau email...">
+                </div>
+                <div class="filter-group">
+                    <label class="filter-label">Status:</label>
+                    <select class="filter-select">
+                        <option value="">Semua Status</option>
+                        <option value="read">Dibaca</option>
+                        <option value="unread">Belum Dibaca</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label class="filter-label">Tanggal:</label>
+                    <input type="date" class="filter-input">
+                </div>
+            </div>
+
+            <!-- Messages Table -->
+            <div class="messages-table">
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>No</th>
+                                <th>Nama</th>
+                                <th>Email</th>
+                                <th>Subjek</th>
+                                <th>Tanggal</th>
+                                <th>Status</th>
+                                <th>Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>1</td>
+                                <td>Budi Santoso</td>
+                                <td>budi@mail.com</td>
+                                <td class="message-text">Saya tertarik dengan produk Briket Arang Anda</td>
+                                <td>04-04-2024</td>
+                                <td><span class="status unread">Belum Dibaca</span></td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <button class="btn-icon btn-view" onclick="openModal('viewMessage', 1)">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                        <button class="btn-icon btn-reply" onclick="openModal('replyMessage', 1)">
+                                            <i class="fas fa-reply"></i>
+                                        </button>
+                                        <button class="btn-icon btn-delete" onclick="deleteMessage(1)">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>2</td>
+                                <td>Rina Wijaya</td>
+                                <td>rina@mail.com</td>
+                                <td class="message-text">Informasi tentang harga Sekam Bakar</td>
+                                <td>03-04-2024</td>
+                                <td><span class="status read">Dibaca</span></td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <button class="btn-icon btn-view" onclick="openModal('viewMessage', 2)">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                        <button class="btn-icon btn-reply" onclick="openModal('replyMessage', 2)">
+                                            <i class="fas fa-reply"></i>
+                                        </button>
+                                        <button class="btn-icon btn-delete" onclick="deleteMessage(2)">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>3</td>
+                                <td>Ahmad Hidayat</td>
+                                <td>ahmad@mail.com</td>
+                                <td class="message-text">Permintaan penawaran untuk Coconut Fiber</td>
+                                <td>02-04-2024</td>
+                                <td><span class="status read">Dibaca</span></td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <button class="btn-icon btn-view" onclick="openModal('viewMessage', 3)">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                        <button class="btn-icon btn-reply" onclick="openModal('replyMessage', 3)">
+                                            <i class="fas fa-reply"></i>
+                                        </button>
+                                        <button class="btn-icon btn-delete" onclick="deleteMessage(3)">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>4</td>
+                                <td>Dewi Kusuma</td>
+                                <td>dewi@mail.com</td>
+                                <td class="message-text">Pertanyaan tentang pengiriman produk</td>
+                                <td>01-04-2024</td>
+                                <td><span class="status read">Dibaca</span></td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <button class="btn-icon btn-view" onclick="openModal('viewMessage', 4)">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                        <button class="btn-icon btn-reply" onclick="openModal('replyMessage', 4)">
+                                            <i class="fas fa-reply"></i>
+                                        </button>
+                                        <button class="btn-icon btn-delete" onclick="deleteMessage(4)">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>5</td>
+                                <td>Joko Susilo</td>
+                                <td>joko@mail.com</td>
+                                <td class="message-text">Kerjasama distribusi produk</td>
+                                <td>31-03-2024</td>
+                                <td><span class="status unread">Belum Dibaca</span></td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <button class="btn-icon btn-view" onclick="openModal('viewMessage', 5)">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                        <button class="btn-icon btn-reply" onclick="openModal('replyMessage', 5)">
+                                            <i class="fas fa-reply"></i>
+                                        </button>
+                                        <button class="btn-icon btn-delete" onclick="deleteMessage(5)">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Pagination -->
+                <div class="pagination">
+                    <a href="#" class="pagination-item active">1</a>
+                    <a href="#" class="pagination-item">2</a>
+                    <a href="#" class="pagination-item">3</a>
+                    <a href="#" class="pagination-item">
+                        <i class="fas fa-chevron-right"></i>
+                    </a>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- View Message Modal -->
+    <div id="viewMessageModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Detail Pesan</h3>
+                <button class="close-modal" onclick="closeModal('viewMessageModal')">&times;</button>
+            </div>
+            <div class="message-preview">
+                <div class="message-meta">
+                    <div class="message-sender">
+                        <i class="fas fa-user"></i>
+                        <span id="messageSender">Budi Santoso</span>
+                    </div>
+                    <div class="message-date">
+                        <i class="fas fa-calendar"></i>
+                        <span id="messageDate">04-04-2024</span>
+                    </div>
+                </div>
+                <div class="message-subject" id="messageSubject">
+                    Saya tertarik dengan produk Briket Arang Anda
+                </div>
+                <div class="message-content" id="messageContent">
+                    Halo PTK Exim,
+
+                    Saya tertarik dengan produk Briket Arang yang Anda tawarkan. Saya ingin mengetahui informasi lebih lanjut tentang:
+                    
+                    1. Harga per kilogram
+                    2. Minimum order
+                    3. Waktu pengiriman
+                    4. Syarat pembayaran
+                    
+                    Mohon informasi lengkapnya agar saya bisa mempertimbangkan pembelian.
+                    
+                    Terima kasih,
+                    Budi Santoso
+                </div>
+            </div>
+            <div class="form-actions">
+                <button type="button" class="btn btn-secondary" onclick="closeModal('viewMessageModal')">Tutup</button>
+                <button type="button" class="btn btn-primary" onclick="openModal('replyMessage', 1)">Balas Pesan</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Reply Message Modal -->
+    <div id="replyMessageModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Balas Pesan</h3>
+                <button class="close-modal" onclick="closeModal('replyMessageModal')">&times;</button>
+            </div>
+            <form id="replyForm">
+                <input type="hidden" id="replyToMessageId">
+                <div class="form-group">
+                    <label for="replyTo">Kepada:</label>
+                    <input type="text" id="replyTo" class="form-control" readonly>
+                </div>
+                <div class="form-group">
+                    <label for="replySubject">Subjek:</label>
+                    <input type="text" id="replySubject" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="replyContent">Pesan:</label>
+                    <textarea id="replyContent" class="form-control" required></textarea>
+                </div>
+                <div class="form-actions">
+                    <button type="button" class="btn btn-secondary" onclick="closeModal('replyMessageModal')">Batal</button>
+                    <button type="submit" class="btn btn-primary">Kirim Balasan</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Delete Confirmation Modal -->
+    <div id="deleteModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Konfirmasi Hapus</h3>
+                <button class="close-modal" onclick="closeModal('deleteModal')">&times;</button>
+            </div>
+            <div class="form-group">
+                <p>Apakah Anda yakin ingin menghapus pesan ini? Tindakan ini tidak dapat dibatalkan.</p>
+            </div>
+            <div class="form-actions">
+                <button type="button" class="btn btn-secondary" onclick="closeModal('deleteModal')">Batal</button>
+                <button type="button" class="btn btn-danger" onclick="confirmDelete()">Hapus</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Modal Functions
+        function openModal(modalType, messageId = null) {
+            const modal = document.getElementById(modalType + 'Modal');
+            modal.style.display = 'block';
+            
+            if (messageId) {
+                // Load message data
+                loadMessageData(messageId, modalType);
+            }
+        }
+
+        function closeModal(modalId) {
+            const modal = document.getElementById(modalId);
+            modal.style.display = 'none';
+        }
+
+        // Close modal when clicking outside
+        window.onclick = function(event) {
+            if (event.target.classList.contains('modal')) {
+                event.target.style.display = 'none';
+            }
+        }
+
+        // Load message data
+        function loadMessageData(messageId, modalType) {
+            // This would typically fetch data from a server
+            // For demo purposes, we'll use hardcoded data
+            const messages = {
+                1: {
+                    sender: 'Budi Santoso',
+                    email: 'budi@mail.com',
+                    date: '04-04-2024',
+                    subject: 'Saya tertarik dengan produk Briket Arang Anda',
+                    content: 'Halo PTK Exim,\n\nSaya tertarik dengan produk Briket Arang yang Anda tawarkan. Saya ingin mengetahui informasi lebih lanjut tentang:\n\n1. Harga per kilogram\n2. Minimum order\n3. Waktu pengiriman\n4. Syarat pembayaran\n\nMohon informasi lengkapnya agar saya bisa mempertimbangkan pembelian.\n\nTerima kasih,\nBudi Santoso'
+                },
+                2: {
+                    sender: 'Rina Wijaya',
+                    email: 'rina@mail.com',
+                    date: '03-04-2024',
+                    subject: 'Informasi tentang harga Sekam Bakar',
+                    content: 'Selamat pagi,\n\nSaya ingin mengetahui informasi tentang harga Sekam Bakar yang Anda jual. Berapa harga per kilogram dan berapa minimum ordernya?\n\nTerima kasih,\nRina Wijaya'
+                },
+                3: {
+                    sender: 'Ahmad Hidayat',
+                    email: 'ahmad@mail.com',
+                    date: '02-04-2024',
+                    subject: 'Permintaan penawaran untuk Coconut Fiber',
+                    content: 'Halo,\n\nSaya tertarik dengan produk Coconut Fiber Anda. Mohon kirimkan penawaran harga untuk pembelian dalam jumlah besar (minimal 1 container).\n\nTerima kasih,\nAhmad Hidayat'
+                },
+                4: {
+                    sender: 'Dewi Kusuma',
+                    email: 'dewi@mail.com',
+                    date: '01-04-2024',
+                    subject: 'Pertanyaan tentang pengiriman produk',
+                    content: 'Selamat siang,\n\nSaya sudah memesan Sekam Bakar dari Anda. Kapan produk akan dikirim dan berapa lama waktu pengirimannya?\n\nTerima kasih,\nDewi Kusuma'
+                },
+                5: {
+                    sender: 'Joko Susilo',
+                    email: 'joko@mail.com',
+                    date: '31-03-2024',
+                    subject: 'Kerjasama distribusi produk',
+                    content: 'Halo PTK Exim,\n\nSaya adalah distributor bahan baku pertanian di Jawa Tengah. Saya tertarik untuk menjadi distributor produk Anda di wilayah tersebut. Mohon informasi tentang syarat dan ketentuan kerjasama distribusi.\n\nTerima kasih,\nJoko Susilo'
+                }
+            };
+            
+            const message = messages[messageId];
+            if (message) {
+                if (modalType === 'viewMessage') {
+                    document.getElementById('messageSender').textContent = message.sender;
+                    document.getElementById('messageDate').textContent = message.date;
+                    document.getElementById('messageSubject').textContent = message.subject;
+                    document.getElementById('messageContent').textContent = message.content;
+                } else if (modalType === 'replyMessage') {
+                    document.getElementById('replyToMessageId').value = messageId;
+                    document.getElementById('replyTo').value = message.email;
+                    document.getElementById('replySubject').value = 'Re: ' + message.subject;
+                    document.getElementById('replyContent').value = '\n\n---------- Pesan Asli ----------\nDari: ' + message.sender + ' <' + message.email + '>\nTanggal: ' + message.date + '\nSubjek: ' + message.subject + '\n\n' + message.content;
+                }
+            }
+        }
+
+        // Delete message
+        let messageToDelete = null;
+        
+        function deleteMessage(messageId) {
+            messageToDelete = messageId;
+            openModal('delete');
+        }
+        
+        function confirmDelete() {
+            if (messageToDelete) {
+                // This would typically send a request to the server
+                // For demo purposes, we'll just show an alert
+                alert(`Pesan dengan ID ${messageToDelete} berhasil dihapus!`);
+                closeModal('deleteModal');
+                messageToDelete = null;
+            }
+        }
+
+        // Form Submissions
+        document.getElementById('replyForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // This would typically send data to a server
+            // For demo purposes, we'll just show an alert
+            alert('Balasan berhasil dikirim!');
+            closeModal('replyMessageModal');
+        });
+
+        // Apply filter
+        function applyFilter() {
+            // This would typically send a request to the server
+            // For demo purposes, we'll just show an alert
+            alert('Filter berhasil diterapkan!');
+        }
+
+        // Export messages
+        function exportMessages() {
+            // This would typically generate and download a file
+            // For demo purposes, we'll just show an alert
+            alert('Data pesan berhasil diekspor!');
+        }
+
+        // Navigation
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', function(e) {
+                document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+                this.classList.add('active');
+            });
+        });
+    </script>
+</body>
+</html> 
