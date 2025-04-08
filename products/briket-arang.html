@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Briket Arang - PTK Exim</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        .product-detail {
+            padding: 120px 0;
+        }
+        
+        .product-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+        
+        .product-gallery img {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .product-gallery img:hover {
+            transform: scale(1.05);
+        }
+        
+        .product-info {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .product-description {
+            margin: 2rem 0;
+            line-height: 1.8;
+        }
+        
+        .product-specs {
+            background: var(--light-color);
+            padding: 2rem;
+            border-radius: 10px;
+            margin: 2rem 0;
+        }
+        
+        .product-specs h3 {
+            margin-bottom: 1.5rem;
+        }
+        
+        .specs-list {
+            list-style: none;
+        }
+        
+        .specs-list li {
+            margin-bottom: 0.5rem;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+        
+        .specs-list li::before {
+            content: "•";
+            position: absolute;
+            left: 0;
+            color: var(--primary-color);
+        }
+        
+        .whatsapp-button {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: #25D366;
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: var(--transition);
+        }
+        
+        .whatsapp-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+        
+        .comments-section {
+            margin-top: 4rem;
+            padding-top: 2rem;
+            border-top: 1px solid #ddd;
+        }
+        
+        .comment-form {
+            margin: 2rem 0;
+        }
+        
+        .comment-form textarea {
+            width: 100%;
+            padding: 1rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            margin-bottom: 1rem;
+            font-family: inherit;
+        }
+        
+        .comment-list {
+            margin-top: 2rem;
+        }
+        
+        .comment {
+            background: var(--light-color);
+            padding: 1rem;
+            border-radius: 5px;
+            margin-bottom: 1rem;
+        }
+        
+        .comment-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+            color: var(--secondary-color);
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <nav class="navbar">
+            <div class="logo">
+                <h1>PTK Exim</h1>
+            </div>
+            <ul class="nav-links">
+                <li><a href="../index.html">Beranda</a></li>
+                <li><a href="../index.html#about">Tentang Kami</a></li>
+                <li><a href="../index.html#products">Produk</a></li>
+                <li><a href="../index.html#services">Layanan</a></li>
+                <li><a href="../index.html#contact">Kontak</a></li>
+            </ul>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Product Detail -->
+    <section class="product-detail">
+        <div class="container">
+            <div class="product-info">
+                <h1>Briket Arang</h1>
+                <div class="product-gallery">
+                    <img src="../images/briket/briket1.png" alt="Briket Arang 1">
+                    <img src="../images/briket/briket2.jpg" alt="Briket Arang 2">
+                    <img src="../images/briket/briket3.jpg" alt="Briket Arang 3">
+                </div>
+                
+                <div class="product-description">
+                    <h2>Deskripsi Produk</h2>
+                    <p>Briket arang kami adalah produk berkualitas tinggi yang diproduksi dengan standar internasional. Terbuat dari bahan baku pilihan dan diproses menggunakan teknologi modern, briket arang kami menawarkan pembakaran yang lebih lama dan lebih efisien dibandingkan briket arang biasa.</p>
+                    <p>Produk ini cocok untuk berbagai keperluan, mulai dari penggunaan rumah tangga hingga kebutuhan industri. Dengan kandungan karbon yang tinggi dan kadar abu yang rendah, briket arang kami memberikan performa yang optimal untuk setiap penggunaan.</p>
+                </div>
+                
+                <div class="product-specs">
+                    <h3>Spesifikasi Produk</h3>
+                    <ul class="specs-list">
+                        <li>Kandungan Karbon: 85-90%</li>
+                        <li>Kadar Air: Maksimal 5%</li>
+                        <li>Kadar Abu: Maksimal 3%</li>
+                        <li>Ukuran: 5cm x 5cm x 2.5cm</li>
+                        <li>Berat: 20kg per karung</li>
+                        <li>Minimum Order: 1 container (20ft)</li>
+                    </ul>
+                </div>
+                <div class="related-products">
+                    <h2>Produk Terkait</h2>
+                    <div class="related-grid">
+                        <div class="related-item">
+                            <img src="../images/sekam/sekam1.jpg" alt="Briket Arang" width="200"
+                            <div class="related-item-content">
+                                <h3>Sekam Bakar</h3>
+                                <p>Produk berkualitas tinggi untuk pertanian dan industri.</p>
+                                <a href="sekam-bakar.html" class="btn primary">Lihat Detail</a>
+                            </div>
+                        </div>
+                        <div class="related-item">
+                            <img src="../images/coconut/coconut1.jpeg" alt="Coconut Fiber" width="200">
+                            <div class="related-item-content">
+                                <h3>Coconut Fiber</h3>
+                                <p>Serat kelapa berkualitas untuk berbagai aplikasi industri.</p>
+                                <a href="coconut-fiber.html" class="btn primary">Lihat Detail</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="comments-section">
+                    <h2>Komentar Pelanggan</h2>
+                    <div class="comment-form">
+                        <textarea placeholder="Tulis komentar Anda..." rows="4"></textarea>
+                        <button class="btn primary">Kirim Komentar</button>
+                    </div>
+                    
+                    <div class="comment-list">
+                        <div class="comment">
+                            <div class="comment-header">
+                                <span class="comment-author">Ahmad S.</span>
+                                <span class="comment-date">15 Maret 2024</span>
+                            </div>
+                            <p>Kualitas briket arangnya sangat bagus, pembakaran lebih lama dan lebih efisien. Sangat direkomendasikan!</p>
+                        </div>
+                        
+                        <div class="comment">
+                            <div class="comment-header">
+                                <span class="comment-author">PT. Maju Bersama</span>
+                                <span class="comment-date">10 Maret 2024</span>
+                            </div>
+                            <p>Sudah bekerjasama selama 2 tahun, selalu konsisten dalam kualitas dan pengiriman tepat waktu.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- WhatsApp Button -->
+    <a href="https://wa.me/6281234567890?text=Halo, saya tertarik dengan produk Briket Arang" class="whatsapp-button" target="_blank">
+        <i class="fab fa-whatsapp"></i>
+        Pesan Produk Ini
+    </a>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Kontak Kami</h3>
+                    <p>Email: ptkexim@gmail.com</p>
+                    <p>WhatsApp: +62xxxxx</p>
+                    <p>Instagram: @ptkexim</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Link Cepat</h3>
+                    <ul>
+                        <li><a href="../index.html">Beranda</a></li>
+                        <li><a href="../index.html#products">Produk</a></li>
+                        <li><a href="../index.html#services">Layanan</a></li>
+                        <li><a href="../index.html#contact">Kontak</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Admin</h3>
+                    <a href="../admin/login.html" class="btn outline">Login Admin</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 PTK Exim. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../js/main.js"></script>
+</body>
+</html> 
