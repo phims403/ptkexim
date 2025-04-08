@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sekam Bakar - PTK Exim</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        .product-detail {
+            padding: 120px 0 60px;
+            background-color: var(--white);
+        }
+        
+        .product-header {
+            text-align: center;
+            margin-bottom: 3rem;
+            animation: fadeInUp 1s ease-out;
+        }
+        
+        .product-header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--dark-color);
+            position: relative;
+            display: inline-block;
+        }
+        
+        .product-header h1::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background-color: var(--accent-color);
+        }
+        
+        .product-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+        
+        .product-gallery-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            transition: var(--transition);
+        }
+        
+        .product-gallery-item:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+        }
+        
+        .product-gallery-item img {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .product-gallery-item:hover img {
+            transform: scale(1.1);
+        }
+        
+        .product-info {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 3rem;
+        }
+        
+        @media (min-width: 768px) {
+            .product-info {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+        
+        .product-description {
+            margin-bottom: 2rem;
+            line-height: 1.8;
+        }
+        
+        .product-description h2 {
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            color: var(--dark-color);
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+        
+        .product-description h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 2px;
+            background-color: var(--accent-color);
+        }
+        
+        .product-specs {
+            background: var(--light-color);
+            padding: 2rem;
+            border-radius: var(--border-radius);
+            margin: 2rem 0;
+            box-shadow: var(--box-shadow);
+            transition: var(--transition);
+        }
+        
+        .product-specs:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .product-specs h3 {
+            margin-bottom: 1.5rem;
+            color: var(--dark-color);
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+        
+        .product-specs h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 40px;
+            height: 2px;
+            background-color: var(--accent-color);
+        }
+        
+        .specs-list {
+            list-style: none;
+        }
+        
+        .specs-list li {
+            margin-bottom: 0.8rem;
+            padding-left: 1.5rem;
+            position: relative;
+            transition: var(--transition);
+        }
+        
+        .specs-list li:hover {
+            transform: translateX(5px);
+        }
+        
+        .specs-list li::before {
+            content: "•";
+            position: absolute;
+            left: 0;
+            color: var(--accent-color);
+            font-size: 1.2rem;
+        }
+        
+        .whatsapp-button {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: #25D366;
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: var(--transition);
+            z-index: 100;
+        }
+        
+        .whatsapp-button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+        
+        .comments-section {
+            margin-top: 4rem;
+            padding-top: 2rem;
+            border-top: 1px solid #eee;
+        }
+        
+        .comments-section h2 {
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            color: var(--dark-color);
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+        
+        .comments-section h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 2px;
+            background-color: var(--accent-color);
+        }
+        
+        .comment-form {
+            margin: 2rem 0;
+            background-color: var(--light-color);
+            padding: 2rem;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+        }
+        
+        .comment-form textarea {
+            width: 100%;
+            padding: 1rem;
+            border: 1px solid #ddd;
+            border-radius: var(--border-radius);
+            margin-bottom: 1rem;
+            font-family: inherit;
+            transition: var(--transition);
+            resize: vertical;
+        }
+        
+        .comment-form textarea:focus {
+            outline: none;
+            border-color: var(--accent-color);
+            box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.2);
+        }
+        
+        .comment-list {
+            margin-top: 2rem;
+        }
+        
+        .comment {
+            background: var(--light-color);
+            padding: 1.5rem;
+            border-radius: var(--border-radius);
+            margin-bottom: 1.5rem;
+            box-shadow: var(--box-shadow);
+            transition: var(--transition);
+        }
+        
+        .comment:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .comment-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.8rem;
+            font-size: 0.9rem;
+            color: var(--gray);
+        }
+        
+        .comment-author {
+            font-weight: 600;
+            color: var(--dark-color);
+        }
+        
+        .comment-date {
+            font-style: italic;
+        }
+        
+        .comment p {
+            line-height: 1.6;
+        }
+        
+        .related-products {
+            margin-top: 4rem;
+            padding-top: 2rem;
+            border-top: 1px solid #eee;
+        }
+        
+        .related-products h2 {
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            color: var(--dark-color);
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+        
+        .related-products h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 2px;
+            background-color: var(--accent-color);
+        }
+        
+        .related-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+        
+        .related-item {
+            background-color: var(--white);
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: var(--box-shadow);
+            transition: var(--transition);
+        }
+        
+        .related-item:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+        }
+        
+        .related-item img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .related-item:hover img {
+            transform: scale(1.1);
+        }
+        
+        .related-item-content {
+            padding: 1.5rem;
+        }
+        
+        .related-item h3 {
+            margin-bottom: 0.5rem;
+            font-size: 1.2rem;
+        }
+        
+        .related-item p {
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+        }
+        
+        .related-item .btn {
+            padding: 0.5rem 1rem;
+            font-size: 0.9rem;
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <nav class="navbar">
+            <div class="logo">
+                <h1>PTK Exim</h1>
+            </div>
+            <ul class="nav-links">
+                <li><a href="../index.html">Beranda</a></li>
+                <li><a href="../index.html#about">Tentang Kami</a></li>
+                <li><a href="../index.html#products">Produk</a></li>
+                <li><a href="../index.html#services">Layanan</a></li>
+                <li><a href="../index.html#contact">Kontak</a></li>
+            </ul>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Product Detail -->
+    <section class="product-detail">
+        <div class="container">
+            <div class="product-header">
+                <h1>Sekam Bakar</h1>
+                <p>Produk berkualitas tinggi untuk pertanian dan industri</p>
+            </div>
+            
+            <div class="product-gallery">
+                <div class="product-gallery-item">
+                    <img src="../images/sekam/sekam1.jpg" alt="Sekam Bakar 1">
+                </div>
+                <div class="product-gallery-item">
+                    <img src="../images/sekam/sekam2.jpg" alt="Sekam Bakar 2">
+                </div>
+                <div class="product-gallery-item">
+                    <img src="../images/sekam/sekam3.jpg" alt="Sekam Bakar 3">
+                </div>
+            </div>
+            
+            <div class="product-info">
+                <div class="product-description">
+                    <h2>Deskripsi Produk</h2>
+                    <p>Sekam bakar kami adalah produk berkualitas tinggi yang diproduksi dengan standar internasional. Terbuat dari sekam padi pilihan yang diproses dengan teknologi modern, sekam bakar kami menawarkan berbagai manfaat untuk pertanian dan industri.</p>
+                    <p>Produk ini cocok untuk berbagai keperluan, mulai dari penggunaan sebagai media tanam, bahan organik untuk pertanian, hingga kebutuhan industri. Dengan kandungan nutrisi yang seimbang dan pH yang netral, sekam bakar kami memberikan performa yang optimal untuk setiap penggunaan.</p>
+                    
+                    <h2>Manfaat Sekam Bakar</h2>
+                    <ul class="specs-list">
+                        <li>Media tanam yang ideal untuk berbagai jenis tanaman</li>
+                        <li>Meningkatkan aerasi tanah dan drainase</li>
+                        <li>Mengandung nutrisi organik yang bermanfaat untuk pertumbuhan tanaman</li>
+                        <li>Mengurangi serangan hama dan penyakit tanaman</li>
+                        <li>Ramah lingkungan dan dapat digunakan dalam jangka panjang</li>
+                        <li>Cocok untuk pertanian organik dan hidroponik</li>
+                    </ul>
+                </div>
+                
+                <div class="product-specs">
+                    <h3>Spesifikasi Produk</h3>
+                    <ul class="specs-list">
+                        <li>Kandungan Karbon: 35-40%</li>
+                        <li>Kadar Air: Maksimal 10%</li>
+                        <li>pH: 6.0-7.0</li>
+                        <li>Ukuran: 0.5-2cm</li>
+                        <li>Berat: 25kg per karung</li>
+                        <li>Minimum Order: 1 container (20ft)</li>
+                    </ul>
+                    
+                    <div style="margin-top: 2rem;">
+                        <a href="https://wa.me/6281234567890?text=Halo, saya tertarik dengan produk Sekam Bakar" class="btn primary" target="_blank" style="width: 100%; text-align: center;">
+                            <i class="fab fa-whatsapp"></i> Pesan Sekarang
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="related-products">
+                <h2>Produk Terkait</h2>
+                <div class="related-grid">
+                    <div class="related-item">
+                        <img src="../images/briket/briket1.png" alt="Briket Arang">
+                        <div class="related-item-content">
+                            <h3>Briket Arang</h3>
+                            <p>Briket arang berkualitas tinggi untuk kebutuhan industri dan rumah tangga.</p>
+                            <a href="briket-arang.html" class="btn primary">Lihat Detail</a>
+                        </div>
+                    </div>
+                    <div class="related-item">
+                        <img src="../images/coconut/coconut1.jpeg" alt="Coconut Fiber">
+                        <div class="related-item-content">
+                            <h3>Coconut Fiber</h3>
+                            <p>Serat kelapa berkualitas untuk berbagai aplikasi industri.</p>
+                            <a href="coconut-fiber.html" class="btn primary">Lihat Detail</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="comments-section">
+                <h2>Komentar Pelanggan</h2>
+                <div class="comment-form">
+                    <textarea placeholder="Tulis komentar Anda..." rows="4"></textarea>
+                    <button class="btn primary">Kirim Komentar</button>
+                </div>
+                
+                <div class="comment-list">
+                    <div class="comment">
+                        <div class="comment-header">
+                            <span class="comment-author">Budi T.</span>
+                            <span class="comment-date">12 Maret 2024</span>
+                        </div>
+                        <p>Sekam bakar ini sangat bagus untuk media tanam sayuran saya. Hasil panen meningkat signifikan setelah menggunakan produk ini.</p>
+                    </div>
+                    
+                    <div class="comment">
+                        <div class="comment-header">
+                            <span class="comment-author">PT. Tani Makmur</span>
+                            <span class="comment-date">5 Maret 2024</span>
+                        </div>
+                        <p>Kualitas konsisten dan pengiriman tepat waktu. Sudah menjadi supplier tetap untuk kebutuhan pertanian kami.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- WhatsApp Button -->
+    <a href="https://wa.me/6281234567890?text=Halo, saya tertarik dengan produk Sekam Bakar" class="whatsapp-button" target="_blank">
+        <i class="fab fa-whatsapp"></i>
+        Pesan Produk Ini
+    </a>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Kontak Kami</h3>
+                    <p>Email: ptkexim@gmail.com</p>
+                    <p>WhatsApp: +62xxxxx</p>
+                    <p>Instagram: @ptkexim</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Link Cepat</h3>
+                    <ul>
+                        <li><a href="../index.html">Beranda</a></li>
+                        <li><a href="../index.html#products">Produk</a></li>
+                        <li><a href="../index.html#services">Layanan</a></li>
+                        <li><a href="../index.html#contact">Kontak</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 PTK Exim. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../js/main.js"></script>
+</body>
+</html> 
