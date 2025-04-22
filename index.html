@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PTK Exim - Eksportir Biji Kakao, Kopi, dan Rempah-rempah</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body class="font-sans">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-lg fixed w-full z-50">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex-shrink-0">
+                    <a href="/" class="text-2xl font-bold text-blue-800">PTK Exim</a>
+                </div>
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-4">
+                        <a href="/" class="text-gray-700 hover:text-blue-800 px-3 py-2 rounded-md">Home</a>
+                        <a href="/about.html" class="text-gray-700 hover:text-blue-800 px-3 py-2 rounded-md">Tentang Kami</a>
+                        <a href="/products.html" class="text-gray-700 hover:text-blue-800 px-3 py-2 rounded-md">Produk</a>
+                        <a href="/articles.html" class="text-gray-700 hover:text-blue-800 px-3 py-2 rounded-md">Artikel & Berita</a>
+                        <a href="/suppliers.html" class="text-gray-700 hover:text-blue-800 px-3 py-2 rounded-md">Supplier</a>
+                        <a href="/contact.html" class="text-gray-700 hover:text-blue-800 px-3 py-2 rounded-md">Hubungi Kami</a>
+                        <a href="/admin/login.html" class="bg-blue-800 text-white px-4 py-2 rounded-md hover:bg-blue-700">Login Admin</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <div class="pt-20">
+        <div class="max-w-7xl mx-auto px-4 py-16">
+            <div class="text-center">
+                <h1 class="text-4xl font-bold text-gray-900 mb-4">PTK Exim</h1>
+                <p class="text-xl text-gray-600 mb-8">Eksportir Biji Kakao, Kopi, dan Rempah-rempah Berkualitas</p>
+                <div class="flex justify-center space-x-4">
+                    <a href="https://wa.me/62XXXXXXXXXXX" class="bg-green-500 text-white px-6 py-3 rounded-md hover:bg-green-600">
+                        <i class="fab fa-whatsapp mr-2"></i>Hubungi Kami
+                    </a>
+                    <a href="https://wa.me/62XXXXXXXXXXX" class="bg-blue-800 text-white px-6 py-3 rounded-md hover:bg-blue-700">
+                        <i class="fas fa-handshake mr-2"></i>Jadi Supplier
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Products Preview -->
+    <section class="bg-gray-50 py-12">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="flex justify-between items-center mb-8">
+                <h2 class="text-2xl font-bold text-gray-900">Produk Unggulan</h2>
+                <a href="/products" class="text-blue-800 hover:text-blue-600">Lihat Semua Produk →</a>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8" id="productsPreview">
+                <!-- Products will be loaded here -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Articles Preview -->
+    <section class="py-12">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="flex justify-between items-center mb-8">
+                <h2 class="text-2xl font-bold text-gray-900">Artikel & Berita</h2>
+                <a href="/articles" class="text-blue-800 hover:text-blue-600">Lihat Semua Artikel →</a>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8" id="articlesPreview">
+                <!-- Articles will be loaded here -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Suppliers Preview -->
+    <section class="bg-gray-50 py-12">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="flex justify-between items-center mb-8">
+                <h2 class="text-2xl font-bold text-gray-900">Supplier Terpercaya</h2>
+                <a href="/suppliers" class="text-blue-800 hover:text-blue-600">Lihat Semua Supplier →</a>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8" id="suppliersPreview">
+                <!-- Suppliers will be loaded here -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-12">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div>
+                    <h3 class="text-xl font-bold mb-4">PTK Exim</h3>
+                    <p class="text-gray-400">Eksportir Biji Kakao, Kopi, dan Rempah-rempah berkualitas dari Indonesia ke pasar global.</p>
+                </div>
+                <div>
+                    <h3 class="text-xl font-bold mb-4">Quick Links</h3>
+                    <ul class="space-y-2">
+                        <li><a href="/" class="text-gray-400 hover:text-white">Home</a></li>
+                        <li><a href="/products" class="text-gray-400 hover:text-white">Produk</a></li>
+                        <li><a href="/suppliers" class="text-gray-400 hover:text-white">Supplier</a></li>
+                        <li><a href="/articles" class="text-gray-400 hover:text-white">Artikel</a></li>
+                        <li><a href="/contact" class="text-gray-400 hover:text-white">Hubungi Kami</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-xl font-bold mb-4">Kontak</h3>
+                    <ul class="space-y-2">
+                        <li class="flex items-center">
+                            <i class="fab fa-whatsapp mr-2"></i>
+                            <a href="https://wa.me/62XXXXXXXXXXX" class="text-gray-400 hover:text-white">+62 XXX XXX XXX</a>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fab fa-instagram mr-2"></i>
+                            <a href="#" class="text-gray-400 hover:text-white">@ptkexim</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400">
+                <p>&copy; 2024 PTK Exim. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+</body>
+</html> 

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Artikel & Berita - PTK Exim</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body class="font-sans">
+    <!-- Navigation (same as index.html) -->
+    <nav class="bg-white shadow-lg fixed w-full z-50">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex-shrink-0">
+                    <a href="/" class="text-2xl font-bold text-blue-800">PTK Exim</a>
+                </div>
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-4">
+                        <a href="/" class="text-gray-700 hover:text-blue-800 px-3 py-2 rounded-md">Home</a>
+                        <a href="/about.html" class="text-gray-700 hover:text-blue-800 px-3 py-2 rounded-md">Tentang Kami</a>
+                        <a href="/products.html" class="text-gray-700 hover:text-blue-800 px-3 py-2 rounded-md">Produk</a>
+                        <a href="/suppliers.html" class="text-gray-700 hover:text-blue-800 px-3 py-2 rounded-md">Supplier</a>
+                        <a href="/articles.html" class="text-gray-700 hover:text-blue-800 px-3 py-2 rounded-md">Artikel & Berita</a>
+                        <a href="/contact.html" class="text-gray-700 hover:text-blue-800 px-3 py-2 rounded-md">Hubungi Kami</a>
+                        <a href="/admin/login.html" class="bg-blue-800 text-white px-4 py-2 rounded-md hover:bg-blue-700">Login Admin</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Articles Section -->
+    <section class="pt-20">
+        <div class="max-w-7xl mx-auto px-4 py-8">
+            <h1 class="text-4xl font-bold text-center mb-12">Artikel & Berita</h1>
+            
+            <!-- Articles Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="articlesGrid">
+                <!-- Articles will be loaded here -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer (same as index.html) -->
+    <footer class="bg-gray-900 text-white py-12">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div>
+                    <h3 class="text-xl font-bold mb-4">PTK Exim</h3>
+                    <p class="text-gray-400">Jl. Contoh No. 123<br>Jakarta, Indonesia</p>
+                </div>
+                <div>
+                    <h3 class="text-xl font-bold mb-4">Quick Links</h3>
+                    <ul class="space-y-2">
+                        <li><a href="/" class="text-gray-400 hover:text-white">Home</a></li>
+                        <li><a href="/products" class="text-gray-400 hover:text-white">Produk</a></li>
+                        <li><a href="/suppliers" class="text-gray-400 hover:text-white">Supplier</a></li>
+                        <li><a href="/articles" class="text-gray-400 hover:text-white">Artikel</a></li>
+                        <li><a href="/contact" class="text-gray-400 hover:text-white">Hubungi Kami</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-xl font-bold mb-4">Kontak</h3>
+                    <ul class="space-y-2">
+                        <li class="flex items-center">
+                            <i class="fab fa-whatsapp mr-2"></i>
+                            <a href="https://wa.me/62XXXXXXXXXXX" class="text-gray-400 hover:text-white">+62 XXX XXX XXX</a>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fab fa-instagram mr-2"></i>
+                            <a href="#" class="text-gray-400 hover:text-white">@ptkexim</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400">
+                <p>&copy; 2024 PTK Exim. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/articles.js"></script>
+</body>
+</html> 

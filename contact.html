@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hubungi Kami - PTK Exim</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body class="font-sans">
+    <!-- Navigation (same as index.html) -->
+    <nav class="bg-white shadow-lg fixed w-full z-50">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex-shrink-0">
+                    <a href="/" class="text-2xl font-bold text-blue-800">PTK Exim</a>
+                </div>
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-4">
+                        <a href="/" class="text-gray-700 hover:text-blue-800 px-3 py-2 rounded-md">Home</a>
+                        <a href="/about.html" class="text-gray-700 hover:text-blue-800 px-3 py-2 rounded-md">Tentang Kami</a>
+                        <a href="/products.html" class="text-gray-700 hover:text-blue-800 px-3 py-2 rounded-md">Produk</a>
+                        <a href="/suppliers." class="text-gray-700 hover:text-blue-800 px-3 py-2 rounded-md">Supplier</a>
+                        <a href="/articles.html" class="text-gray-700 hover:text-blue-800 px-3 py-2 rounded-md">Artikel & Berita</a>
+                        <a href="/contact.html" class="text-gray-700 hover:text-blue-800 px-3 py-2 rounded-md">Hubungi Kami</a>
+                        <a href="/admin/login.html" class="bg-blue-800 text-white px-4 py-2 rounded-md hover:bg-blue-700">Login Admin</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Contact Section -->
+    <section class="pt-32 pb-16">
+        <div class="max-w-7xl mx-auto px-4">
+            <h1 class="text-4xl font-bold text-center mb-12">Hubungi Kami</h1>
+            
+            <div class="grid md:grid-cols-2 gap-12">
+                <!-- Contact Form -->
+                <div class="bg-white p-8 rounded-lg shadow-md">
+                    <h2 class="text-2xl font-semibold mb-6">Kirim Pesan</h2>
+                    <form id="contactForm" class="space-y-6">
+                        <div>
+                            <label class="form-label">Tujuan</label>
+                            <div class="space-x-4">
+                                <label class="inline-flex items-center">
+                                    <input type="radio" name="purpose" value="purchase" class="form-radio" required>
+                                    <span class="ml-2">Pembelian Produk</span>
+                                </label>
+                                <label class="inline-flex items-center">
+                                    <input type="radio" name="purpose" value="supplier" class="form-radio">
+                                    <span class="ml-2">Daftar Supplier</span>
+                                </label>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <label for="name" class="form-label">Nama Lengkap</label>
+                            <input type="text" id="name" name="name" class="form-input" required>
+                        </div>
+                        
+                        <div>
+                            <label for="email" class="form-label">Email</label>
+                            <input type="email" id="email" name="email" class="form-input" required>
+                        </div>
+                        
+                        <div>
+                            <label for="company" class="form-label">Nama Perusahaan</label>
+                            <input type="text" id="company" name="company" class="form-input" required>
+                        </div>
+                        
+                        <div>
+                            <label for="message" class="form-label">Pesan</label>
+                            <textarea id="message" name="message" rows="4" class="form-input" required></textarea>
+                        </div>
+                        
+                        <button type="submit" class="btn-primary w-full">Kirim Pesan</button>
+                    </form>
+                </div>
+                
+                <!-- Contact Information -->
+                <div class="space-y-8">
+                    <div class="bg-white p-8 rounded-lg shadow-md">
+                        <h2 class="text-2xl font-semibold mb-6">Informasi Kontak</h2>
+                        <div class="space-y-4">
+                            <div class="flex items-start">
+                                <i class="fas fa-map-marker-alt text-blue-800 mt-1 mr-4"></i>
+                                <div>
+                                    <h3 class="font-semibold">Alamat</h3>
+                                    <p class="text-gray-600">Jl. Contoh No. 123<br>Jakarta, Indonesia</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-start">
+                                <i class="fas fa-phone text-blue-800 mt-1 mr-4"></i>
+                                <div>
+                                    <h3 class="font-semibold">Telepon</h3>
+                                    <p class="text-gray-600">+62 XXX XXX XXX</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-start">
+                                <i class="fas fa-envelope text-blue-800 mt-1 mr-4"></i>
+                                <div>
+                                    <h3 class="font-semibold">Email</h3>
+                                    <p class="text-gray-600">info@ptkexim.com</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-white p-8 rounded-lg shadow-md">
+                        <h2 class="text-2xl font-semibold mb-6">Chat Langsung via WhatsApp</h2>
+                        <p class="text-gray-600 mb-6">Untuk respon lebih cepat, Anda dapat menghubungi kami langsung melalui WhatsApp.</p>
+                        <a href="https://wa.me/62XXXXXXXXXXX" class="btn-secondary w-full text-center">
+                            <i class="fab fa-whatsapp mr-2"></i> Chat via WhatsApp
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer (same as index.html) -->
+    <footer class="bg-gray-900 text-white py-12">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div>
+                    <h3 class="text-xl font-bold mb-4">PTK Exim</h3>
+                    <p class="text-gray-400">Jl. Contoh No. 123<br>Jakarta, Indonesia</p>
+                </div>
+                <div>
+                    <h3 class="text-xl font-bold mb-4">Quick Links</h3>
+                    <ul class="space-y-2">
+                        <li><a href="/" class="text-gray-400 hover:text-white">Home</a></li>
+                        <li><a href="/products" class="text-gray-400 hover:text-white">Produk</a></li>
+                        <li><a href="/suppliers" class="text-gray-400 hover:text-white">Supplier</a></li>
+                        <li><a href="/articles" class="text-gray-400 hover:text-white">Artikel</a></li>
+                        <li><a href="/contact" class="text-gray-400 hover:text-white">Hubungi Kami</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-xl font-bold mb-4">Kontak</h3>
+                    <ul class="space-y-2">
+                        <li class="flex items-center">
+                            <i class="fab fa-whatsapp mr-2"></i>
+                            <a href="https://wa.me/62XXXXXXXXXXX" class="text-gray-400 hover:text-white">+62 XXX XXX XXX</a>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fab fa-instagram mr-2"></i>
+                            <a href="#" class="text-gray-400 hover:text-white">@ptkexim</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400">
+                <p>&copy; 2024 PTK Exim. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+</body>
+</html> 
